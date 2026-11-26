@@ -23,3 +23,16 @@ xnu-12377.121.6 and overlay this tree.
 
 ## Status
 Experimental. Boots to desktop on device; Wi-Fi / audio / camera drivers pending.
+
+## AI one-click build
+
+Want an agent to build a bootable image for you? See [AI_BUILD.md](AI_BUILD.md)
+for the exact, gated pipeline (tree build -> pager patch -> compile with kalloc
+gate -> single-variable packaging -> flash criteria). One command once the
+toolchain and device baseline parts are in place:
+
+    bash star-tools/ai-build.sh
+
+Note: the kernel source and scripts are here, but the cross-toolchain, XNU SDK
+and device-extracted baseline parts (loader/ramdisk/rdimage/memsize/identity)
+are prerequisites, not included in this repo.
