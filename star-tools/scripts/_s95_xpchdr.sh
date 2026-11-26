@@ -1,0 +1,22 @@
+#!/bin/bash
+OUT=/mnt/c/ios26/s95_xpchdr.out
+: > "$OUT"
+e(){ echo "$@" >> "$OUT"; }
+e "=== xpc.h anywhere on system ==="
+find /root /usr -path '*xpc/xpc.h' 2>/dev/null | head -10 >> "$OUT"
+echo "(done)" >> "$OUT"
+e ""
+e "=== K90 SDK xpc.h ==="
+find /root/star26/warsaw-ref -path '*xpc/xpc.h' 2>/dev/null | head -5 >> "$OUT"
+e ""
+e "=== xnu-clang wrapper: what sysroot/sdk does it use? ==="
+head -60 /root/xnu26-test/bin/xnu26-clang 2>/dev/null >> "$OUT"
+e ""
+e "=== star build.sh DYN selection logic (85-140) ==="
+sed -n '85,140p' /root/star26/hackios-xnu-userland/userland/build.sh >> "$OUT"
+e ""
+e "=== does the repo have a local xpc shim header? ==="
+find /root/star26/hackios-xnu-userland -iname '*xpc*' 2>/dev/null | head -10 >> "$OUT"
+e ""
+e "=== DONE ==="
+echo "OK $(wc -c < "$OUT") bytes"
